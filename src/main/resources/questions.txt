@@ -1,5 +1,10 @@
-Quelle est la capitale du Cameroun ?;Paris;Yaounde;Berlin;Garoua
-Quel est le plus grand océan du monde ?;Océan Pacifique;Océan Atlantique;Océan Indien;Océan Arctique
-Quelle est la planète la plus proche du Soleil ?;Mercure;Vénus;Terre;Mars
-Combien de continents y a-t-il sur Terre ?;7;5;6;8
-Quel est l'organe principal du système respiratoire chez l'Homme ?;Poumons;Coeur;Foie;Reins
+Combien de langages de programmation sont considérés comme des langages de haut niveau ?/3/5/7/9
+Qui est souvent considéré comme le père de l'informatique ?/Alan Turing/Steve Jobs/Bill Gates/Tim Berners-Lee
+Quel est le composant essentiel pour stocker des données de façon permanente dans un ordinateur ?/Carte graphique/Disque dur/RAM/CPU
+Quel protocole est utilisé pour transférer des fichiers sur Internet ?/TCP/HTTP/FTP/HTTP
+Quelle est la méthode la plus courante pour organiser et stocker des données de manière structurée dans une base de données relationnelle ?/XML/HTML/JSON/SQL
+Qui est l'inventeur du langage de programmation Python ?/Mark Zuckerberg/Larry Page/Linus Torvalds/Guido van Rossum
+Quel est le terme pour désigner une série d'instructions exécutées par un ordinateur pour effectuer une tâche spécifique ?/Programme/Code source/Algorithme/Script
+Quel est le composant matériel qui exécute les instructions d'un programme et effectue les opérations de calcul dans un ordinateur ?/GPU/Disque dur/RAM/CPU
+Quel type de système d'exploitation est basé sur le noyau Linux ?/Android/Unix/macOS/Windows
+Quel est le principal langage de programmation utilisé pour créer des pages Web dynamiques ?/JavaScript/PHP/C++/Java
