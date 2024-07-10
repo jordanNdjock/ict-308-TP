@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: whitesmoke; -fx-background-radius: 32px; -fx-border-radius: 32px;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.easyquiz.RegistrationController">
+    <children>
+        <!-- Background Image -->
+        <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/background.jpg" />
+            </image>
+        </ImageView>
+
+        <!-- Title Label -->
+        <Label layoutX="148.0" prefHeight="68.0" prefWidth="340.0" style="-fx-text-fill: white;" text="Inscription">
+            <font>
+                <Font name="System Bold" size="36.0" />
+            </font>
+        </Label>
+
+        <!-- Play Quiz Button -->
+        <Button fx:id="registerbtn" layoutX="148.0" layoutY="320.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="304.0" style="-fx-background-color: black; -fx-background-radius: 32px; -fx-border-radius: 32px;" text="S'inscrire" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Button>
+
+        <!-- Login Form -->
+        <VBox layoutX="158.0" layoutY="150.0" prefHeight="132.0" prefWidth="304.0" spacing="10.0">
+            <children>
+                <TextField fx:id="usernameFieldRegister" layoutX="200.0" layoutY="100.0" promptText="Nom d'utilisateur" />
+                <PasswordField fx:id="passwordFieldRegister" layoutX="200.0" layoutY="150.0" promptText="Mot de passe" />
+                <PasswordField fx:id="confirmPasswordFieldRegister" layoutX="200.0" layoutY="200.0" promptText="Confirmer le mot de passe" />
+                <Label fx:id="errorLabel" prefHeight="40.0" prefWidth="304.0" textFill="crimson">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+
+        <Button fx:id="backButton" onAction="#goToHome" style="-fx-background-color: purple;" text="Retour à l'accueil" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

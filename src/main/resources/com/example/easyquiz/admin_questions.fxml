@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.easyquiz.QuestionController">
+    <!-- Background Image -->
+    <ImageView fitHeight="400.0" fitWidth="600.0">
+        <image>
+            <Image url="@images/background.jpg" />
+        </image>
+    </ImageView>
+
+    <!-- Admin Title -->
+    <Text layoutX="200.0" layoutY="20.0" style="-fx-font-size: 20px;" text="Admin - Gestion des questions" />
+
+    <!-- User Management Button -->
+    <Button layoutX="434.0" layoutY="308.0" onAction="#navigateToUserManagement" prefHeight="40.0" prefWidth="139.0" text="Gestion des utilisateurs" />
+
+    <!-- Difficulty ComboBox -->
+    <ComboBox fx:id="difficultyComboBox" layoutX="223.0" layoutY="53.0" onAction="#loadQuestions" promptText="Sélectionner la difficulté" />
+
+    <!-- Questions Table -->
+    <TableView fx:id="questionsTable" layoutX="62.0" layoutY="103.0" prefHeight="138.0" prefWidth="491.0">
+        <columns>
+            <TableColumn fx:id="questionColumn" prefWidth="352.4000129699707" text="Question" />
+            <TableColumn fx:id="difficultyColumn" minWidth="0.0" prefWidth="136.4000244140625" text="Difficulté" />
+        </columns>
+    </TableView>
+
+    <!-- Question Field -->
+    <TextArea fx:id="questionField" layoutX="62.0" layoutY="241.0" prefHeight="53.0" prefWidth="491.0" promptText="Question" />
+
+    <!-- Action Buttons -->
+    <HBox layoutX="62.0" layoutY="295.0" prefHeight="27.0" prefWidth="210.0" spacing="10.0">
+        <Button onAction="#handleAdd" prefHeight="47.0" prefWidth="55.0" text="Ajouter" />
+        <Button onAction="#handleUpdate" prefHeight="133.0" prefWidth="62.0" text="Modifier" />
+        <Button onAction="#handleDelete" text="Supprimer" />
+    </HBox>
+</AnchorPane>

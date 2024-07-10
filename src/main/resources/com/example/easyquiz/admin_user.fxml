@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: whitesmoke; -fx-background-radius: 32px; -fx-border-radius: 32px;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.easyquiz.AdminController">
+    <children>
+        <!-- Background Image -->
+        <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/background.jpg" />
+            </image>
+        </ImageView>
+
+        <!-- Title Label -->
+        <Label layoutX="148.0" prefHeight="68.0" prefWidth="340.0" style="-fx-text-fill: white;" text="Admin - Gestion des utilisateurs">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+
+        <!-- Button to Manage Questions -->
+        <HBox layoutX="225" layoutY="100" spacing="10">
+            <Button onAction="#navigateToQuestionManagement" style="-fx-background-color: black; -fx-text-fill: white;" text="Gestion des questions">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Button>
+        </HBox>
+
+        <!-- Users Table -->
+        <TableView fx:id="usersTable" layoutX="37.0" layoutY="150.0" prefHeight="230.0" prefWidth="518.0">
+            <columns>
+                <TableColumn fx:id="usernameColumn" prefWidth="270.00000762939453" text="Nom d'utilisateur">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="username" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="roleColumn" prefWidth="129.0" text="Rôle">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="role" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+
+        <!-- User Input Fields -->
+        <GridPane hgap="10" layoutX="40" layoutY="342.0" prefHeight="30.0" prefWidth="212.0" vgap="10">
+            <TextField fx:id="usernameField" promptText="Nom d'utilisateur" />
+            <PasswordField fx:id="passwordField" promptText="Mot de passe" />
+            <ComboBox fx:id="roleComboBox" promptText="Rôle">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Admin" />
+                        <String fx:value="Utilisateur" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <HBox spacing="10">
+                <Button onAction="#handleAddUser" text="Ajouter" />
+                <Button onAction="#handleUpdateUser" text="Modifier" />
+                <Button onAction="#handleDeleteUser" text="Supprimer" />
+            </HBox>
+         <columnConstraints>
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+
+    </children>
+</AnchorPane>

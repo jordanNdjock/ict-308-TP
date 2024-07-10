@@ -5,31 +5,35 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class QuizController {
+
+    static String playerName;
+
+    private String correctAnswerText;
+
 
     @FXML
     public Label question;
 
     @FXML
     public Button opt1, opt2, opt3, opt4;
+    private static String difficulty;
 
     static int counter = 0;
-    static int correct = 1;
+
+    static int totalQuestions;
+    static int correct = 0;
 
 
     // Déclarez une liste pour stocker les questions
@@ -37,137 +41,97 @@ public class QuizController {
 
     @FXML
     private void initialize() {
+
         loadQuestions();
     }
 
     private void loadQuestions() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/questions.txt"));
-            String line = null;
-
-            for (int i = 0; i <= counter; i++) {
-                line = reader.readLine();
+            BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/questions/" + difficulty + ".txt"));
+            String line;
+            questions.clear();
+            while ((line = reader.readLine()) != null) {
+                questions.add(line);
             }
 
-            if (line != null) {
-                String[] parts = line.split("/");
-                question.setText(parts[0]);
-                opt1.setText(parts[1]);
-                opt2.setText(parts[2]);
-                opt3.setText(parts[3]);
-                opt4.setText(parts[4]);
+            totalQuestions = questions.size();
+            Collections.shuffle(questions);
+            if (counter < totalQuestions) {
+                loadQuestion(counter);
             }
-
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private void loadQuestion(int questionIndex) {
+        if (questionIndex >= totalQuestions) return;
+        String line = questions.get(questionIndex);
+        String[] parts = line.split("/");
+        String questionNumber = (questionIndex + 1) + ". ";
+        question.setText(questionNumber + parts[0]);
+
+        List<String> answers = new ArrayList<>();
+        answers.add(parts[1]);
+        answers.add(parts[2]);
+        answers.add(parts[3]);
+        answers.add(parts[4]);
+
+        opt1.setText(answers.get(0));
+        opt2.setText(answers.get(1));
+        opt3.setText(answers.get(2));
+        opt4.setText(answers.get(3));
+
+        correctAnswerText = parts[5];
+    }
+
     @FXML
     public void optionClicked(ActionEvent event) {
         Button clickedButton = (Button) event.getSource();
-        checkAnswer(clickedButton.getText());
-        boolean isCorrect = checkAnswer(clickedButton.getText());
+        String selectedAnswer = clickedButton.getText();
+        boolean isCorrect = selectedAnswer.equals(correctAnswerText);
         if (isCorrect) {
             correct++;
             counter++;
-            loadQuestions();
+            if (counter < totalQuestions) {
+                loadQuestion(counter);
+            } else {
+                showResult();
+            }
         } else {
-            try {
-                Stage thisstage = (Stage) clickedButton.getScene().getWindow();
-                thisstage.close();
-                FXMLLoader quiz = new FXMLLoader(getClass().getResource("result.fxml"));
-                Scene quizscene = new Scene(quiz.load());
-                quizscene.setFill(Color.TRANSPARENT);
-                Stage quizstage = new Stage();
-                quizstage.setScene(quizscene);
-                quizstage.setResizable(false);
-                quizstage.getIcons().add(new Image("logo.png"));
-                quizstage.setTitle("Quizz IT");
-                quizstage.initStyle(StageStyle.DECORATED);
-                quizstage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            showResult();
         }
-
-    }
-    boolean checkAnswer(String answer) {
-
-        if (counter == 0) {
-            if (answer.equals("7")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 1) {
-            if (answer.equals("Alan Turing")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 2) {
-            if (answer.equals("Disque dur")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 3) {
-            if (answer.equals("FTP")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 4) {
-            if (answer.equals("SQL")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 5) {
-            if (answer.equals("Guido van Rossum")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 6) {
-            if (answer.equals("Programme")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 7) {
-            if (answer.equals("CPU")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 8) {
-            if (answer.equals("Android")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        if (counter == 9) {
-            if (answer.equals("Javascript")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return false;
     }
 
+    private void showResult() {
+        try {
+            Stage thisStage = (Stage) question.getScene().getWindow();
+            thisStage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("result.fxml"));
+            Scene scene = new Scene(loader.load());
+            ResultController resultController = loader.getController();
+            resultController.setPlayerName(playerName);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.getIcons().add(new Image("logo.png"));
+            stage.setTitle("Quizz IT / joueur : " + playerName);
+            stage.initStyle(StageStyle.DECORATED);
+            scene.setFill(Color.TRANSPARENT);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public static void setDifficulty(String difficulty) {
+        QuizController.difficulty = difficulty;
+    }
 
 }
-
