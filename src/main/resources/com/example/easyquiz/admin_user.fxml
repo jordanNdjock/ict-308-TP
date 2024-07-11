@@ -75,4 +75,9 @@
         </GridPane>
 
     </children>
+    <Button fx:id="backButton" onAction="#goToHome" style="-fx-background-color: purple;" text="Retour à l'accueil" textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="12.0" />
+        </font>
+    </Button>
 </AnchorPane>

@@ -166,14 +166,16 @@ public class HomeController {
 
     @FXML
     private void toggleMute(ActionEvent event) {
-        isMuted = !isMuted;
-        mediaPlayer.setMicrosecondPosition(0);
-        if (isMuted) {
-            mediaPlayer.stop();
-            muteImageView.setImage(new Image(getClass().getResourceAsStream("/com/example/easyquiz/images/muted.jpg")));
-        } else {
-            mediaPlayer.start();
-            muteImageView.setImage(new Image(getClass().getResourceAsStream("/com/example/easyquiz/images/sound.jpg")));
+        if (mediaPlayer != null) {
+            if (isMuted) {
+                mediaPlayer.setMicrosecondPosition(0); // Reset to the beginning
+                mediaPlayer.start();
+                muteImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/easyquiz/images/sound.jpg"))));
+            } else {
+                mediaPlayer.stop();
+                muteImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/easyquiz/images/muted.jpg"))));
+            }
+            isMuted = !isMuted;
         }
     }
 

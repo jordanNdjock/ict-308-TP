@@ -17,7 +17,7 @@
     <Text layoutX="200.0" layoutY="20.0" style="-fx-font-size: 20px;" text="Admin - Gestion des questions" />
 
     <!-- User Management Button -->
-    <Button layoutX="434.0" layoutY="308.0" onAction="#navigateToUserManagement" prefHeight="40.0" prefWidth="139.0" text="Gestion des utilisateurs" />
+    <Button layoutX="434.0" layoutY="308.0" onAction="#navigateToUserManagement" style="-fx-background-color: black;  -fx-text-fill: white;" prefHeight="40.0" prefWidth="139.0" text="Gestion des utilisateurs" />
 
     <!-- Difficulty ComboBox -->
     <ComboBox fx:id="difficultyComboBox" layoutX="223.0" layoutY="53.0" onAction="#loadQuestions" promptText="Sélectionner la difficulté" />
@@ -31,7 +31,7 @@
     </TableView>
 
     <!-- Question Field -->
-    <TextArea fx:id="questionField" layoutX="62.0" layoutY="241.0" prefHeight="53.0" prefWidth="491.0" promptText="Question" />
+    <TextArea fx:id="questionField" layoutX="62.0" layoutY="241.0" prefHeight="53.0" prefWidth="491.0" promptText="Question de la forme : question?choix1/choix2/choix3/choix4/reponse" />
 
     <!-- Action Buttons -->
     <HBox layoutX="62.0" layoutY="295.0" prefHeight="27.0" prefWidth="210.0" spacing="10.0">
@@ -39,4 +39,9 @@
         <Button onAction="#handleUpdate" prefHeight="133.0" prefWidth="62.0" text="Modifier" />
         <Button onAction="#handleDelete" text="Supprimer" />
     </HBox>
+    <Button fx:id="backButton" onAction="#goToHome" style="-fx-background-color: purple;" text="Retour à l'accueil" textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="12.0" />
+        </font>
+    </Button>
 </AnchorPane>

@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -151,4 +152,28 @@ public class AdminController {
     }
 
 
+    @FXML
+    private void goToHome(ActionEvent event) {
+        try {
+            HomeController homeController = new HomeController();
+            homeController.stopMusic();
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            stage.close();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("home.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            scene.setFill(Color.TRANSPARENT);
+
+            Stage homeStage = new Stage();
+            homeStage.setScene(scene);
+            homeStage.setResizable(false);
+            homeStage.getIcons().add(new Image("logo.png"));
+            homeStage.setTitle("Easy Quiz IT");
+            homeStage.initStyle(StageStyle.DECORATED);
+
+            homeStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -65,12 +65,58 @@ public class QuestionController {
 
     @FXML
     private void handleAdd() {
-        String questionText = questionField.getText();
+        String questionText = questionField.getText().trim();
         String difficulty = difficultyComboBox.getValue();
-        Question newQuestion = new Question(questionText, difficulty);
-        addQuestionToFile(newQuestion);
+
+        if (questionText.isEmpty() || difficulty == null || difficulty.isEmpty()) {
+            System.out.println("Veuillez remplir tous les champs.");
+            return;
+        }
+
+
+        if (!questionText.matches(".+\\?.+/.*")) {
+            System.out.println("Le texte de la question ne respecte pas le format attendu.");
+            return;
+        }
+
+
+        String[] parts = questionText.split("[?/]");
+
+        if (parts.length != 6) {
+            System.out.println("Le texte de la question ne respecte pas le format attendu.");
+            return;
+        }
+
+        String question = parts[0];
+        String[] choices = { parts[1], parts[2], parts[3], parts[4] };
+        String answer = parts[5];
+
+        if(difficulty.equalsIgnoreCase("facile")){
+            difficulty = "easy";
+        } else if (difficulty.equalsIgnoreCase("normal")) {
+            difficulty = "medium";
+        }else{
+            difficulty= "hard";
+        }
+        try (FileWriter fw = new FileWriter("src/main/resources/questions/" + difficulty + ".txt", true);
+             BufferedWriter bw = new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw)) {
+
+            out.println("\n"+questionText);
+
+            System.out.println("Question ajoutée avec succès.");
+
+        } catch (IOException e) {
+            System.err.println("Erreur lors de l'écriture dans le fichier : " + e.getMessage());
+        }
+
         loadQuestions();
+        System.out.println("Question: " + question);
+        System.out.println("Difficulté: " + difficulty);
+        System.out.println("Choix: " + String.join(", ", choices));
+        System.out.println("Réponse: " + answer);
     }
+
 
     @FXML
     private void handleUpdate() {
@@ -165,4 +211,28 @@ public class QuestionController {
     }
 
 
+    @FXML
+    private void goToHome(ActionEvent event) {
+        try {
+            HomeController homeController = new HomeController();
+            homeController.stopMusic();
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            stage.close();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("home.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            scene.setFill(Color.TRANSPARENT);
+
+            Stage homeStage = new Stage();
+            homeStage.setScene(scene);
+            homeStage.setResizable(false);
+            homeStage.getIcons().add(new Image("logo.png"));
+            homeStage.setTitle("Easy Quiz IT");
+            homeStage.initStyle(StageStyle.DECORATED);
+
+            homeStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
